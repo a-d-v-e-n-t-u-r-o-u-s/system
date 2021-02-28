@@ -79,7 +79,7 @@ void SYSTEM_timer_delay(uint8_t val)
 
 uint8_t SYSTEM_timer_init(void)
 {
-    OCR1A = 7999U;
+    OCR1A = 15999U;
     TCCR1B |= (1<<WGM12)|(1<<CS10);
     TIMSK |= (1<<OCF1B);
     sei();
