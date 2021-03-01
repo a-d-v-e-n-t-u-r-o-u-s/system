@@ -25,8 +25,14 @@
 
 #include <stdint.h>
 
+
+extern uint8_t _end;
+extern uint8_t __stack;
+
 typedef void (*SYSTEM_task_t)(void);
 
+uint16_t SYSTEM_get_stack_left(void);
+uint16_t SYSTEM_get_stack_size(void);
 int8_t SYSTEM_register_task(SYSTEM_task_t task, uint16_t interval);
 void SYSTEM_main(void);
 void SYSTEM_init(void);
