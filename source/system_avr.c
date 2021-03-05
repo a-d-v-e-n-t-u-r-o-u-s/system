@@ -20,13 +20,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#define DEBUG_ENABLED DEBUG_SYS_ENABLED
+#define DEBUG_LEVEL DEBUG_SYS_LEVEL
+#define DEBUG_APP_ID "SYS"
+
 #include "system.h"
 #include "system_timer.h"
 #include "system_common.h"
 #include <stdbool.h>
 #include "debug.h"
 
-#define SYSTEM_MAX_TASKS    5
+#define SYSTEM_MAX_TASKS        (5)
 #define STACK_CANARY            (0xC5U)
 
 typedef struct
@@ -87,17 +91,14 @@ uint16_t SYSTEM_get_stack_size(void)
     return (&__stack - &_end);
 }
 
-int8_t SYSTEM_register_task(SYSTEM_task_t task, uint16_t interval)
+void SYSTEM_register_task(SYSTEM_task_t task, uint16_t interval)
 {
-    if(task == NULL || task_counter == SYSTEM_MAX_TASKS)
-    {
-        return -1;
-    }
+    ASSERT(task != NULL);
+    ASSERT(task_counter != SYSTEM_MAX_TASKS);
 
     tasks[task_counter].task = task;
     tasks[task_counter].interval = interval;
     task_counter++;
-    return 0;
 }
 
 void SYSTEM_main(void)
