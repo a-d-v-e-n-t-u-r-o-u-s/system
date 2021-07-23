@@ -20,11 +20,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include "system_common.h"
-#include "hardware.h"
 #include "system_timer.h"
+#include "hardware.h"
+#include "common.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stddef.h>
+
+#define OCR_VALUE       ((F_CPU/1000) - 1U)
+
+STATIC_ASSERT((OCR_VALUE < UINT16_MAX),F_CPU_not_supported);
 
 static volatile uint32_t system_tick;
 static void (*timer_callback)(void);
@@ -80,7 +85,7 @@ void SYSTEM_timer_delay(uint8_t val)
 
 uint8_t SYSTEM_timer_init(void)
 {
-    OCR1A = F_CPU/1000U - 1U;
+    OCR1A = OCR_VALUE;
     TCCR1B |= (1<<WGM12)|(1<<CS10);
     TIMSK |= (1<<OCF1B);
     sei();

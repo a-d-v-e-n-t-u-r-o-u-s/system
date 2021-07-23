@@ -25,9 +25,10 @@
 #define DEBUG_APP_ID "SYS"
 
 #include "system.h"
+#include "common.h"
 #include "system_timer.h"
-#include "system_common.h"
 #include <stdbool.h>
+#include <stddef.h>
 #include "debug.h"
 
 #define SYSTEM_MAX_TASKS        (5)
