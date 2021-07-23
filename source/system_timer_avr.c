@@ -21,6 +21,7 @@
  *
  */
 #include "system_common.h"
+#include "hardware.h"
 #include "system_timer.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -79,7 +80,7 @@ void SYSTEM_timer_delay(uint8_t val)
 
 uint8_t SYSTEM_timer_init(void)
 {
-    OCR1A = 15999U;
+    OCR1A = F_CPU/1000U - 1U;
     TCCR1B |= (1<<WGM12)|(1<<CS10);
     TIMSK |= (1<<OCF1B);
     sei();
