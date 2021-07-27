@@ -58,9 +58,10 @@ void SYSTEM_stack_paint(void)
         p++;
     }
 #else
+    /* STACK_CANARY = 0xc5 */
     __asm volatile ("    ldi r30,lo8(_end)\n"
                     "    ldi r31,hi8(_end)\n"
-                    "    ldi r24,lo8(0xc5)\n" /* STACK_CANARY = 0xc5 */
+                    "    ldi r24,lo8(0xc5)\n"
                     "    ldi r25,hi8(__stack)\n"
                     "    rjmp .cmp\n"
                     ".loop:\n"
@@ -104,9 +105,7 @@ void SYSTEM_register_task(SYSTEM_task_t task, uint16_t interval)
 
 void SYSTEM_main(void)
 {
-    uint8_t i = 0;
-
-    for(i=0;i<task_counter;i++)
+    for(uint8_t i=0u ;i<task_counter; i++)
     {
         uint32_t curr_tick = SYSTEM_timer_get_tick();
 

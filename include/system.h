@@ -37,4 +37,4 @@ void SYSTEM_register_task(SYSTEM_task_t task, uint16_t interval);
 void SYSTEM_main(void);
 void SYSTEM_init(void);
 
-#endif // SYSTEM_H
+#endif
