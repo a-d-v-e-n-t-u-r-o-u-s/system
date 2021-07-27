@@ -32,7 +32,7 @@
 STATIC_ASSERT((OCR_VALUE < UINT16_MAX),F_CPU_not_supported);
 
 static volatile uint32_t system_tick;
-static void (*timer_callback)(void);
+static SYSTEM_timer_callback_t timer_callback;
 
 ISR(TIMER1_COMPB_vect)
 {
@@ -44,7 +44,7 @@ ISR(TIMER1_COMPB_vect)
     }
 }
 
-int8_t SYSTEM_timer_register(void (*callback)(void))
+int8_t SYSTEM_timer_register(SYSTEM_timer_callback_t callback)
 {
     if(callback != NULL)
     {

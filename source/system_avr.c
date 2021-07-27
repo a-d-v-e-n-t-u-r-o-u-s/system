@@ -78,7 +78,7 @@ uint16_t SYSTEM_get_stack_left(void)
     const uint8_t *p = &_end;
     uint16_t       c = 0;
 
-    while( p <= &__stack && *p == STACK_CANARY )
+    while((p <= &__stack) && (*p == STACK_CANARY))
     {
         p++;
         c++;
