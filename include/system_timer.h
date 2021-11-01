@@ -1,6 +1,6 @@
 /*!
  * \file
- * \brief Hardware configuration file
+ * \brief System time API
  * \author Dawid Babula
  * \email dbabula@adventurous.pl
  *
@@ -25,12 +25,51 @@
 
 #include <stdint.h>
 
+/*!
+ *
+ * \addtogroup system
+ * \ingroup modules
+ * \brief System module
+ */
+
+/*@{*/
+
 typedef void (*SYSTEM_timer_callback_t)(void);
 
+/*!
+ * \brief Registers system tick callback
+ *
+ * \callback function to be called in case of system tick triggers
+ *
+ * \retval 0 success, callback registered
+ * \retval -1 failure
+ */
 int8_t SYSTEM_timer_register(SYSTEM_timer_callback_t callback);
+
+/*!
+ * \brief Gets system tick value
+ *
+ * \returns system tick value
+ */
 uint32_t SYSTEM_timer_get_tick(void);
-uint32_t SYSTEM_timer_tick_difference(uint32_t prev,uint32_t next);
+
+/*!
+ * \brief Gets difference between two system ticks values
+ *
+ * \param prev first system tick value for comparison
+ * \param next second system tick value for comparison
+ *
+ * \returns difference value
+ */
+uint32_t SYSTEM_timer_tick_difference(uint32_t prev, uint32_t next);
+
+/* \todo (DB) does nothing, maybe should be removed */
 void SYSTEM_timer_delay(uint8_t val);
+
+/*!
+ * \brief Initializes system timer module
+ */
 uint8_t SYSTEM_timer_init(void);
 
+/*@}*/
 #endif

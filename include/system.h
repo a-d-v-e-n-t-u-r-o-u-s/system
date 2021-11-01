@@ -1,6 +1,6 @@
 /*!
  * \file
- * \brief Hardware configuration file
+ * \brief System API
  * \author Dawid Babula
  * \email dbabula@adventurous.pl
  *
@@ -25,16 +25,55 @@
 
 #include <stdint.h>
 
+/*!
+ *
+ * \addtogroup system
+ * \ingroup modules
+ * \brief System module
+ */
+
+/*@{*/
+
 
 extern uint8_t _end;
 extern uint8_t __stack;
 
+/*!
+ * \brief Identifies task to be registered
+ */
 typedef void (*SYSTEM_task_t)(void);
 
+/*!
+ * \brief Gets free stack value
+ *
+ * \returns free stack value
+ */
 uint16_t SYSTEM_get_stack_left(void);
+
+/*!
+ * \brief Gets stack size
+ *
+ * \returns stack size
+ */
 uint16_t SYSTEM_get_stack_size(void);
+
+/*!
+ * \brief Registers task
+ *
+ * \param task task to be registered
+ * \param inteval time interval in which task is going to be poked
+ */
 void SYSTEM_register_task(SYSTEM_task_t task, uint16_t interval);
+
+/*!
+ * \brief System main task, which schedules other tasks
+ */
 void SYSTEM_main(void);
+
+/*!
+ * \brief Initializes system module
+ */
 void SYSTEM_init(void);
 
+/*@}*/
 #endif
